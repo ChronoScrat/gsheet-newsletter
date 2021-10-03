@@ -35,7 +35,7 @@ O código deve estar vinculado à planilha em que ele será rodado. Dessa forma,
 
 Para instalar o código, crie uma nova planilha do Google Sheets, e depois vá em Ferramentas > Editor de Script. O primeiro arquivo gerado é um arquivo .GS (uma versão do JavaScript utilizado pelos apps do Google). Copie o conteúdo de "enviaNews.gs" e cole nele (substituindo tudo). Em seguida, crie novos arquivos HTML - um para cada um dos contidos nesse repositório - e cole os conteúdos. O nome do arquivo contendo o código GS não importa, mas os nomes dos arquivos HTML **importa**, pois eles são utilizados no código. Caso você deseje alterá-los, altere o código.
 
-Feito isso, crie duas planilhas: "Instruções" e "ODEC", e na primeira defina os intervalos nomados "nome" e "beamer". O código estará pronto para uso.
+Feito isso, crie duas folhas: "Instruções" e "ODEC", e na primeira defina os intervalos nomados "nome" e "beamer". O código estará pronto para uso.
 
 ## Como funciona
 
@@ -52,7 +52,7 @@ O código da planilha vasculha cada aba através de informações, aplicando as 
     - Se sim, criar uma nova seção que levará o nome da folha. Essa seção indica o tema geral das notícias dela. Em seguida, para cada linha com conteúdo a partir da sexta, buscar a informação de cada coluna e formatá-la nos moldes do arquivo "news-entry.html".
     - Se não, ignorar a folha e seguir para a próxima.
 
-Quando o código percorrer todas as folhas, ele terminará de formatar o arquivo final da newsletter em HTML. Em seguida, ele buscará as informações de `nome`e `beamer` a partir de intervalos nomeados na folha "Instruções", e chamará a função `MailApp.SendEmail` para enviar o email para o beamer secreto.
+Quando o código percorrer todas as folhas, ele terminará de formatar o arquivo final da newsletter em HTML. Em seguida, ele buscará as informações de `nome` e `beamer` a partir de intervalos nomeados na folha "Instruções", e chamará a função `MailApp.SendEmail` para enviar o email para o beamer secreto.
 
 O código foi escrito com certa versatilidade em mente. Com exceção das folhas "Instruções" e "ODEC", é possível inserir quantas folhas se desejar, cada uma contendo uma temática diferente. Como o nome da seção depende do nome da folha, o usuário final tem liberdade para decidi-lo sem precisar alterar o código.
 
