@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base target="_top">
+        <style>
+            h1, h2, h3{
+                color: #b84444;
+                font-weight: 700;
+                text-decoration: none;
+                margin-top:5px;
+                margin-bottom: 10px;
+                margin-left:0;
+                margin-right:0;
+            }
+            h2{
+                font-size: 27px;
+            }
+            h3{
+                font-size: 20px;
+                color: purple !important;
+            }
+            .news-container{
+                background-color: #e0e0dc;
+                padding: 15px;
+                width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .news-header{
+                display: table;
+            }
+            .news-header-cell{
+                display: table-cell;
+                vertical-align: middle;
+            }
+            .logo{
+                width:110px;
+            }
+            .news-message{
+                text-align: left;
+                font-family: Arial, Helvetica, sans-serif;
+                margin-top:50px;
+                padding-left:10px;
+                padding-right: 10px;
+            }
+            .news-message p{
+                margin:0;
+                padding: 0;
+            }
+            .news-entries-wrapper{
+                /*margin-top: 50px;*/
+                margin-bottom: 10px;
+                margin-left:0;
+                margin-right: 0;
+                padding-top:5px;
+                padding-bottom:5px;
+                padding-right:10px;
+                padding-left: 10px;
+            }
+            .news-entry-section{
+                border-bottom:#b84444 4px dashed;
+                margin-top: 30px;
+            }
+            .news-entry{
+                margin-top:20px;
+                margin-bottom: 45px;
+            }
+            @media only screen and (max-device-width: 500px) {
+                h2{
+                    margin-bottom:45px;
+                }
+                .news-container{
+                    width:100%;
+                }
+                .news-header{
+                    margin-bottom:100px;
+                }
+                .news-entry-section{
+                    margin-top:80px;
+                }
+                .news-entry{
+                    margin-top: 40px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="news-container">
+
+            <div class="news-header">
+
+                <div style="display: table-row;">
+                    
+                    <div class="news-header-cell">
+                        <img src="http://odec.iri.usp.br/wp-content/uploads/2021/09/logo.png" class="logo">
+                    </div>
+
+                    <div class="news-header-cell" style="text-align: right; width: 100%;">
+
+                        <span><strong>Newsletter - ODEC</strong></span><br><span>dd/mm/yyyy</span>
+
+                    </div>
+
+                </div>
+
+            </div>
