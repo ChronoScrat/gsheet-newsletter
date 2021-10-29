@@ -44,9 +44,8 @@ function enviaNewsletter(){
 
             var msgInicial = sheet.getRange("mensagem").getValue();
 
-            // Essa linha passa o conteúdo da mensagem como HTML. Isso é util,
-            // por exemplo, caso a mensagem tenha quebras de linha ou trechos em
-            // negrito, pois esses trechos serão lidos, de fato, como HTML.
+            // Permite que, mais pra frente, possamos passar o conteúdo da mensagem
+            // como HTML. Isso é útil, por exemplo, para adicionar quebra de linhas.
             var msgInicial = HtmlService.createHtmlOutput(msgInicial).getContent();
 
             // Adiciona o campo "mensagem" ao JSON
@@ -141,9 +140,16 @@ function enviaNewsletter(){
 
     // Agora vamos passar o JSON para o arquivo de template, que posteriormente
     // gerará a newsletter finalizada.
-    var htmlTemplate = HtmlService.crecreateTemplateFromFile("template.html");
+    var htmlTemplate = HtmlService.createTemplateFromFile("template.html");
     htmlTemplate.dados = newsFinal; // Passa o JSON
     var templateFinal = htmlTemplate.evaluate().getContent();
+
+    // Substitui "&lt;" por "<" e "&gt;" por ">" para permitir que código HTML
+    // inserido dentro das células possa ser interpretado. CUIDADO: aqui não
+    // há filtro. Todo código vai ser interpretado.
+    var templateFinal = templateFinal.replaceAll("&lt;","<");
+    var templateFinal = templateFinal.replaceAll("&gt;",">");
+    
 
     // Agora chamar o API do Gmail para enviar o template finalizado para o
     // beamer secreto
@@ -151,7 +157,7 @@ function enviaNewsletter(){
     MailApp.sendEmail({
         to: newsBeamer,
         subject: newsNome,
-        htmlBody: newsFinal
+        htmlBody: templateFinal
     });
 
     // Código encerrado
