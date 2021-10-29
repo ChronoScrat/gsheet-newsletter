@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base target="_top">
+        <meta charset="utf-8">
+        <style>
+            h1, h2, h3{
+                color: #b84444 !important;
+                font-weight: 700;
+                text-decoration: none;
+                margin-top:5px;
+                margin-bottom: 10px;
+                margin-left:0;
+                margin-right:0;
+            }
+            h2{
+                font-size: 27px;
+            }
+            h3{
+                font-size: 20px;
+                color: purple !important;
+            }
+            .news-container{
+                background-color: #e0e0dc;
+                padding: 15px;
+                width: 100%;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .news-header{
+                display: table;
+            }
+            .news-header-cell{
+                display: table-cell;
+                vertical-align: middle;
+            }
+            .news-message{
+                text-align: left;
+                font-family: Arial, Helvetica, sans-serif;
+                margin-top:50px;
+                padding-left:10px;
+                padding-right: 10px;
+            }
+            .news-message p{
+                margin:0;
+                padding: 0;
+            }
+            .news-entries-wrapper{
+                /*margin-top: 50px;*/
+                margin-bottom: 10px;
+                margin-left:0;
+                margin-right: 0;
+                padding-top:5px;
+                padding-bottom:5px;
+                padding-right:10px;
+                padding-left: 10px;
+            }
+            .news-entry-section{
+                border-bottom:#b84444 4px dashed;
+                margin-top: 30px;
+            }
+            .news-entry{
+                margin-top:20px;
+                margin-bottom: 45px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <table style="border: none !important;margin:auto;padding:0;" width="700">
+            <tbody>
+                <tr>
+                    <td>
+                        <!--Header-->
+                        <div class="news-header">
+                            <div style="display: table-row;">
+
+                                <div class="news-header-cell">
+                                    <img src="http://odec.iri.usp.br/wp-content/uploads/2021/09/logo.png" style="border:none !important; width:110px !important;">
+                                </div>
+
+                                <div class="news-header-cell" style="text-align: right; width: 100%;">
+                                    <span><strong>Newsletter - ODEC</strong></span><br><span><?= Utilities.formatDate(new Date(), "GMT-3", "dd/MM/yyyy") ?></span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--Fim do Header-->
+
+                        <!--MENSAGEM: inserir somente se houver-->
+                        <? if( dados.mensagem != "" ) { ?>
+                        
+                        <div class="news-message">
+                            <h2>Mensagem do ODEC:</h2>
+                            <p>
+                                <?= dados.mensagem ?>
+                            </p>
+                        </div>
+
+                        <? }; ?>
+                        <!--Fim da Mensagem-->
+
+                        <!--Início da Área de Notícias-->
+                        <div class="news-entries-wrapper">
+
+                            <!--Conteúdo do ODEC-->
+                            <? if( dados.odec != "" ){ ?>
+
+                            <div class="news-entry-section">
+
+                                <h2>No ODEC:</h2>
+
+                                <!--Matérias-->
+                                <? for ( i = 0; i < dados.odec.length; i++ ){ ?>
+
+                                <div class="news-entry">
+                                    <div style="display:block;">
+
+                                        <h3>
+                                            <a href="<?= dados.odec[i].link ?>" style="text-decoration: none;color: inherit;"><?= dados.odec[i].titulo ?></a>
+                                        </h3>
+                                        <span>
+                                            <strong><?= dados.odec[i].categoria ?></strong> - <?= dados.odec[i].dataPub ?>
+                                        </span>
+
+                                        <!--Autor-->
+                                        <? if( dados.odec[i].autor != "" ){ ?>
+
+                                        <br>
+                                        <span>
+                                            Por: <strong><?= dados.odec[i].autor ?></strong>
+                                        </span>
+
+                                        <? }; ?>
+
+                                    </div>
+                                    <div style="display: block;">
+                                        <P>
+                                            <?= dados.odec[i].resumo ?>
+                                        </P>
+                                    </div>
+                                </div>
+
+                                <? }; ?>
+
+                            </div>
+
+                            <? }; ?>
+                            <!--Fim dos Conteúdo do ODEC-->
+
+                            <!--Início do Conteúdo dos jornais-->
+                            <? for( i = 0; i < dados.conteudo.length; i++ ){ ?>
+
+                                <div class="news-entry-section">
+
+                                    <h2><?= dados.conteudo[i].secao ?></h2>
+
+                                    <!--Matérias do Jornal-->
+                                    <? for( j = 0; j < dados.conteudo[i].materias.length; j++ ){ ?>
+
+                                        <div class="news-entry">
+                                            <div style="display:block;">
+                                            
+                                                <h3>
+                                                    <a href="<?= dados.conteudo[i].materias[j].link ?>" style="text-decoration: none;color: inherit;"><?= dados.conteudo[i].materias[j].titulo ?></a>
+                                                </h3>
+                                                <span>
+                                                    <strong><?= dados.conteudo[i].materias[j].autor ?></strong> - <?= dados.conteudo[i].materias[j].jornal ?> (<?= dados.conteudo[i].materias[j].dataPub ?>)
+                                                </span>
+
+                                                <div style="display: block;">
+                                                    <p>
+                                                        <?= dados.conteudo[i].materias[j].resumo ?>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    <? }; ?>
+                                    <!--Fim das Matérias-->
+
+                                </div>
+
+                            <? }; ?>
+                            <!--Fim do conteúdo dos jornais-->
+
+                        </div>
+                        <!--Fim da Área de Notícias-->
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>
