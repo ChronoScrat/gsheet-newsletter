@@ -27,7 +27,7 @@ function enviaNewsletter(){
     var newsNome = "";
     var newsBeamer ="";
 
-    var logERROR = FALSE;
+    var logERROR = false;
 
     try {
 
@@ -166,7 +166,7 @@ function enviaNewsletter(){
 
     } catch (error){
         alert(error);
-        if(logERROR == TRUE){
+        if(logERROR == true){
             DriveApp.createFile('error.txt', error);
         };
     }
