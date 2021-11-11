@@ -2,7 +2,7 @@
 
 Olá, bem vindo!
 
-Esse é um gerador simples de newsletter a partir de informações em uma planilha do GSheets. O GSuite é muito prático por permitir colaboração em tempo real e armazenamento na nuvem, e é o Suite utilizado pela Universidade de São Paulo como padrão.
+Esse é um gerador simples de newsletter a partir de informações em uma planilha do GSheets. O Google Workspaces é muito prático por permitir colaboração em tempo real e armazenamento na nuvem, e é o Office Suite utilizado pela Universidade de São Paulo por padrão.
 
 Esse gerador vasculha a planilha em busca de notícias indexadas em cada uma das folhas, organiza elas no formato da newsletter especificado nos arquivos em HTML, e a envia para o endereço secreto especificado dentro da própria planilha.
 
@@ -25,7 +25,7 @@ Essas variáveis utilizam **intervalos nomeados** (*named ranges*) dentro da fol
 
 O endreço de email secreto do beamer estar disponível na planilha **não é a melhor prática de segurança**. Como tudo o que for enviado para esse email tem o potencial de ser distribuído na forma de newsletter, ele deveria estar oculto no código. A razão pela qual ele foi mantido na planilha é por questões de portabilidade: caso algum dia o sistema de newsletter do ODEC venha a mudar, basta apenas alterar aquele endereço na planilha, sem necessidade de que alguém altere o código e arrisque quebrá-lo.
 
-A folha "ODEC" contém um campo especial: o campo "Mensagens". Esse campo, na folha, está na posição `C6`, e serve para veicular uma mensagem do ODEC na Newsletter. Essa mensagem aparece antes das notícias, em um campo próprio que só deve ser inserido no corpo do arquivo caso haja de fato alguma mensagem a ser veículada. Esse campo, assim, funciona independentemente de existirem ou não notícias na folha "ODEC".
+A folha "ODEC" contém um campo especial: o campo "Mensagens". Esse campo, na folha, marcado como o intervalo nomeado `mensagem`, e serve para veicular uma mensagem do ODEC na Newsletter. Essa mensagem aparece antes das notícias, em um campo próprio que só deve ser inserido no corpo do arquivo caso haja de fato alguma mensagem a ser veículada. Esse campo, assim, funciona independentemente de existirem ou não notícias na folha "ODEC".
 
 Nenhuma das informações aqui é absoluta. É plenamente possível, por exemplo, alterar o nome da folha "ODEC" na sua planilha. Apenas assegure-se de alterar todas as instância dela no código (não utilize substituição automática, pois podem haver outras instâncias de "ODEC" que não se refiram à planilha).
 
@@ -33,24 +33,15 @@ Nenhuma das informações aqui é absoluta. É plenamente possível, por exemplo
 
 O código deve estar vinculado à planilha em que ele será rodado. Dessa forma, evita-se que ele esteja vinculado a uma conta específica, mas sim a planilha, e permite-se que outras pessoas possam usá-lo mesmo depois da desativação da conta criadora.
 
-Para instalar o código, crie uma nova planilha do Google Sheets, e depois vá em Ferramentas > Editor de Script. O primeiro arquivo gerado é um arquivo .GS (uma versão do JavaScript utilizado pelos apps do Google). Copie o conteúdo de "enviaNews.gs" e cole nele (substituindo tudo). Em seguida, crie novos arquivos HTML - um para cada um dos contidos nesse repositório - e cole os conteúdos. O nome do arquivo contendo o código GS não importa, mas os nomes dos arquivos HTML **importa**, pois eles são utilizados no código. Caso você deseje alterá-los, altere o código.
+Para instalar o código, crie uma nova planilha do Google Sheets, e depois vá em Ferramentas > Editor de Script. O primeiro arquivo gerado é um arquivo .GS (uma versão do JavaScript utilizado pelos apps do Google). Copie o conteúdo de "enviaNews.gs" e cole nele (substituindo tudo). Em seguida, crie um arquivo html e cole o conteúdo de *template.html*. O nome do arquivo contendo o código GS não importa, mas o nome do arquivo HTML **importa**, pois ele é utilizado no código. Caso você deseje alterá-lo, altere o código.
 
-Feito isso, crie duas folhas: "Instruções" e "ODEC", e na primeira defina os intervalos nomados "nome" e "beamer". O código estará pronto para uso.
+Feito isso, crie duas folhas: "Instruções" e "ODEC"; na primeira defina os intervalos nomados "nome" e "beamer", e na segunda o intervalo nomeado "mensagem". O código estará pronto para uso.
 
 ## Como funciona
 
 O código da planilha vasculha cada aba através de informações, aplicando as seguintes regras:
 
-1. Ignorar a aba "Instruções"
-2. Na aba "ODEC", verficar se existe conteúdo na célula `C6`:
-    - Se existir, pegar esse conteúdo e inserí-lo dentro do campo especificado no arquivo "msg-odec.html".
-    - Se não existir, ignorar o campo.
-3. Ainda na aba "ODEC", verificar se na célula `B9` (linha 9, coluna 2) existe conteúdo:
-    - Se sim, buscar todo o conteúdo, a partir dessa linha, e formatá-lo nos campos do arquivo "news-odec.html".
-    - Se não, ignorar o restante da aba e prosseguir.
-4. Para todas as outras abas: verificar se na célula `B6`(linha 6, coluna 2) existe conteúdo:
-    - Se sim, criar uma nova seção que levará o nome da folha. Essa seção indica o tema geral das notícias dela. Em seguida, para cada linha com conteúdo a partir da sexta, buscar a informação de cada coluna e formatá-la nos moldes do arquivo "news-entry.html".
-    - Se não, ignorar a folha e seguir para a próxima.
+(Atualizar)
 
 Quando o código percorrer todas as folhas, ele terminará de formatar o arquivo final da newsletter em HTML. Em seguida, ele buscará as informações de `nome` e `beamer` a partir de intervalos nomeados na folha "Instruções", e chamará a função `MailApp.SendEmail` para enviar o email para o beamer secreto.
 
