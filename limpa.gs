@@ -13,6 +13,10 @@
  * 
 */
 
+/**
+* @description Limpa o conteúdo de uma folha individual da planilha
+* @since 2.1
+*/
 function limpaFolha() {
 
   // Pega o arquivo ativo e a planilha ativa
@@ -44,6 +48,10 @@ function limpaFolha() {
 
 }
 
+/**
+* @description Limpa o conteúdo da Planilha
+* @since 2.1
+*/
 function limpaPlanilha(){
 
   // Pega o arquivo ativo e todas as planilhas contidas nela
